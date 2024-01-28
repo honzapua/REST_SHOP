@@ -9,19 +9,19 @@ public class Customer {
     @Nullable
     // Bude za nas vytvaret DB autoincrement. V case vytvareni instance nevime ID, budeme vedet az po ulozeni do DB a nacteni zpet!
     private Integer id;
-    @NonNull    //povinne, nesmi byt null
+    @NonNull    //povinne, NEsmi byt null
     private String name;
-    @NonNull    //povinne, nesmi byt null
+    @NonNull    //povinne, NEsmi byt null
     private String surname;
-    @NonNull    //povinne, nesmi byt null
+    @NonNull    //povinne, NEsmi byt null
     private String email;
-    @NonNull    //povinne, nesmi byt null
+    @NonNull    //povinne, NEsmi byt null
     private String address;
 
     @Nullable
-    private Integer age;    // nepovinne, muze byt null
+    private Integer age;    // nepovinne, muze byt null   @Nullable
     @Nullable
-    private String phone_number;    //  nepovinne, muze byt null
+    private String phone_number;    //  nepovinne, muze byt null      @Nullable
 
     public Customer() {
     }
