@@ -33,3 +33,10 @@ CREATE TABLE `shop`.`merchant` (
       ON UPDATE NO ACTION);
 
       zapomnel jsem ulozit posledni skript se zmenou...
+
+      Budeme pouzivat application.properties, spring data JPA - spring JDBC bez hibernate v tomto projektu.
+      Vytvorime dependencies coz je neni tak pokrocile jak hibernate,
+      budeme pouzivat jdbc template a budeme psat cele ty updaty a inserty do db.
+
+      jdbc:mysql://localhost:3306/?user=root ziskame tlacitka connection
+      spring.datasoure.url=jdbc:mysql://localhost:3306/?user=root/shop?useSSL=false pro domaci ucely

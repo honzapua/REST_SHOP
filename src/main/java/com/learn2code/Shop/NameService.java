@@ -1,19 +1,19 @@
 package com.learn2code.Shop;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service        //vytvori Beanu
+import javax.annotation.PostConstruct;
+
+@Service        //vytvori Beanu za nas
 public class NameService {
     @Value("${name}")
     private String name;
 
-    public NameService(/*String name*/) {
-//        System.out.println(name);
+    public NameService() {
     }
 
-    @PostConstruct
+    @PostConstruct      //zavola sayMyName() po startu springbootu!
     private void sayMyName() {
         System.out.println(name);
     }
