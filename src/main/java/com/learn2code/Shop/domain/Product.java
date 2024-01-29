@@ -19,7 +19,7 @@ public class Product {
     @NonNull
     private double price;   //double
     @NonNull
-    private Timestamp created_at;   //java sql
+    private Timestamp createdAt;   //java sql
     @NonNull
     private int available;
 
@@ -32,7 +32,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.available = available;
-        this.created_at = Timestamp.from(Instant.now()); // v case vytvoreni konstruktoru
+        this.createdAt = Timestamp.from(Instant.now()); // v case vytvoreni konstruktoru
     }
 
     @Nullable
@@ -79,12 +79,12 @@ public class Product {
     }
 
     @NonNull
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(@NonNull Timestamp created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(@NonNull Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     public int getAvailable() {
@@ -100,11 +100,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return merchantId == product.merchantId && Double.compare(price, product.price) == 0 && available == product.available && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(created_at, product.created_at);
+        return merchantId == product.merchantId && Double.compare(price, product.price) == 0 && available == product.available && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(createdAt, product.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, merchantId, name, description, price, created_at, available);
+        return Objects.hash(id, merchantId, name, description, price, createdAt, available);
     }
 }
