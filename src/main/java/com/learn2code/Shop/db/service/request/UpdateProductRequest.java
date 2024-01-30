@@ -1,4 +1,4 @@
-package com.learn2code.Shop.db.service.api.request;
+package com.learn2code.Shop.db.service.request;
 
 import org.springframework.lang.NonNull;
 

@@ -1,6 +1,6 @@
 package com.learn2code.Shop.db.service.api;
 
-import com.learn2code.Shop.db.service.api.request.UpdateProductRequest;
+import com.learn2code.Shop.db.service.request.UpdateProductRequest;
 import com.learn2code.Shop.domain.Product;
 import org.springframework.lang.Nullable;
 

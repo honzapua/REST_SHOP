@@ -37,7 +37,9 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope> <!-- scope pouzivat jen na testy, aby nam nepridavala/nemazala radky v Mysql. dale application.properties-->
+            <scope>test</scope> <!-- scope pouzivat jen na testy, aby nam nepridavala/nemazala radky v Mysql.
+            dale application.properties-->
+            <!--<scope>runtime</scope>-->
         </dependency>
 
         <dependency>

@@ -6,9 +6,15 @@ Delete
 
 databazove rozhrani pro Customer = CustomerService
 db.service.api
-potom budu delat API - interface  CustomerService
+potom budu delat API - interface  Product/MerchantService
 
 stejne ProductService
 
 void update(int id, String name, double price, int available)
 Vytvorim novou tridu Update product request
+
+implementace DB rozhrani mapper package pod db
+
+CustomerRepository bude nejnizssi vrstva, ktera bude komunikovat s jDBC template
+CustomerRepository obsahuje jenom komunikaci s DB
+CustomerServiceImpl bude slouzit k vlastni logice, treba zjistovat jestli ma zakaznik penize apod.
