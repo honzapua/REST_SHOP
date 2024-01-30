@@ -1,0 +1,14 @@
+CRUD
+Create
+Read
+Update
+Delete
+
+databazove rozhrani pro Customer = CustomerService
+db.service.api
+potom budu delat API - interface  CustomerService
+
+stejne ProductService
+
+void update(int id, String name, double price, int available)
+Vytvorim novou tridu Update product request
