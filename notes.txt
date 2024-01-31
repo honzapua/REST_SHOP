@@ -18,3 +18,5 @@ implementace DB rozhrani mapper package pod db
 CustomerRepository bude nejnizssi vrstva, ktera bude komunikovat s jDBC template
 CustomerRepository obsahuje jenom komunikaci s DB, nestara se o logiku
 CustomerServiceImpl bude slouzit k vlastni business logice, treba zjistovat, jestli ma zakaznik penize apod.
+
+ProductRepository a ServiceImpl stejna situace.
