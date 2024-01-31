@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service    // and @component
+@Service    // and @Component help to create object during initialization we will use it later in Controller
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
+    // constructor injection funguje, kdyz jsme dali anotaci @Component CustomerRepository bean
     public CustomerServiceImpl(CustomerRepository customerRepository) { //constructor injection
         this.customerRepository = customerRepository;
     }
