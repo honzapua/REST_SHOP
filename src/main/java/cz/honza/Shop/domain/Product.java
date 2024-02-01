@@ -18,7 +18,7 @@ public class Product {
     private String description;
     @NonNull
     private double price;   //double
-    @NonNull
+    @Nullable// @NonNull because REST
     private Timestamp createdAt;   //java sql
     @NonNull
     private int available;
@@ -78,7 +78,7 @@ public class Product {
         this.price = price;
     }
 
-    @NonNull
+    @Nullable // @NonNull because REST
     public Timestamp getCreatedAt() {
         return createdAt;
     }

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -47,6 +49,11 @@ public class ProductRepository {
                 ps.setString(2, product.getName());
                 ps.setString(3, product.getDescription());
                 ps.setDouble(4, product.getPrice());
+                //Bez IF vrati null, kdyz nepujdeme pres konstruktor, pri pouziti REST POST volani.
+                // @NonNull => @Nullable v Product
+                if (product.getCreatedAt() == null) {
+                    product.setCreatedAt(Timestamp.from(Instant.now()));
+                }
                 ps.setTimestamp(5, product.getCreatedAt());
                 ps.setInt(6, product.getAvailable());
                 return ps;
