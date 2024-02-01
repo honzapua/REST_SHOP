@@ -1,9 +1,7 @@
 package com.learn2code.Shop.db.repository;
 
-import com.learn2code.Shop.db.mapper.CustomerRowMapper;
 import com.learn2code.Shop.db.mapper.ProductRawMapper;
 import com.learn2code.Shop.db.service.request.UpdateProductRequest;
-import com.learn2code.Shop.domain.Customer;
 import com.learn2code.Shop.domain.Product;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
 @Component
@@ -30,7 +27,7 @@ public class ProductRepository {
     public Product get(int id) {
         final String sql = "SELECT * FROM product WHERE product.id = " + id;
         try {
-            //one Object we need only 1 where id =  !
+            //one Object we need only 1 where id = int
             return jdbcTemplate.queryForObject(sql, productRawMapper);
         } catch (EmptyResultDataAccessException e) {    // if id does not return
             return null;

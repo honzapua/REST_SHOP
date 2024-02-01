@@ -21,7 +21,6 @@ public class CustomerRowMapper implements RowMapper<Customer> {
         customer.setAge(rs.getObject("age") == null ? null : rs.getInt("age"));
         // no need to advanced set because String could be null
         customer.setPhone_number(rs.getString("phone_number"));
-
         return customer;
     }
 }
