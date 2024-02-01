@@ -100,7 +100,13 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return merchantId == product.merchantId && Double.compare(price, product.price) == 0 && available == product.available && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(createdAt, product.createdAt);
+        return merchantId == product.merchantId && Double.compare(price, product.price) == 0 &&
+                available == product.available &&
+                Objects.equals(id, product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+//                Objects.equals(createdAt, product.createdAt); //because h2 db time at microseconds was different
+                Objects.equals(createdAt.getTime(), product.createdAt.getTime()); //this returns only miliseconds since 1970
     }
 
     @Override

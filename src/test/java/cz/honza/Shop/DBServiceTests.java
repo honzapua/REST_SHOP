@@ -1,14 +1,14 @@
 package cz.honza.Shop;
 
-/**
- * Testy v spring kontexte
- */
-
 import cz.honza.Shop.db.service.api.CustomerService;
 import cz.honza.Shop.db.service.api.MerchantService;
+import cz.honza.Shop.db.service.api.ProductService;
+import cz.honza.Shop.db.service.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Customer;
 import cz.honza.Shop.domain.Merchant;
+import cz.honza.Shop.domain.Product;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+/**
+ * Tests in Spring context
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DBServiceTests {
@@ -24,6 +27,21 @@ public class DBServiceTests {
     private CustomerService customerService;
     @Autowired
     private MerchantService merchantService;
+    @Autowired
+    private ProductService productService;
+
+    private Merchant merchant; //pomocny field kvuli createMerchant()
+
+    @Before //pomocna metoda se bude spoustet pred kazdym testem, potrebujeme merchant field/property kvuli product() a merchant()
+    public void createMerchant() {
+        if (merchant == null) {
+//            Merchant merchant = new Merchant("CZC.cz", "obchod@czc.cz", "Hvezdova");  // Nechceme tvorit Novou instanci Merchant! Byl by null pointer!
+            merchant = new Merchant("CZC.cz", "obchod@czc.cz", "Hvezdova");
+            Integer id = merchantService.add(merchant);
+            assert id != null;  //if id == null Merchant creation failed
+            merchant.setId(id); // bez tohoto radku bude objekt jiny a testy selzou
+        }
+    }
 
     @Test   //pom.xml pro <scope>test</scope> h2 DB
     public void customer() {
@@ -42,16 +60,44 @@ public class DBServiceTests {
 
     @Test
     public void merchant() {
-        Merchant merchant = new Merchant("CZC.cz", "obchod@czc.cz", "Hvezdova" );
-        Integer id = merchantService.add(merchant);
-        assert id != null;  //if id == null Merchant creation failed
-        merchant.setId(id); // bez tohoto radku bude objekt jiny a testy selzou
+//        duplicity from this code was moved to method  @Before createMerchant();
+//        Merchant merchant = new Merchant("CZC.cz", "obchod@czc.cz", "Hvezdova");
+//        Integer id = merchantService.add(merchant);
+//        assert id != null;  //if id == null Merchant creation failed
+//        merchant.setId(id); // bez tohoto radku bude objekt jiny a testy selzou*/
 
-        Merchant fromDB = merchantService.get(id); //po pridani do db nacteni z DB
+        Merchant fromDB = merchantService.get(merchant.getId()); //po pridani do db nacteni z DB
         Assert.assertEquals(merchant, fromDB);  //vytvoreny merchant je shodny s ulozenym v DB
 
         List<Merchant> merchants = merchantService.getMerchants();
         Assert.assertEquals(1, merchants.size());   //velikost listu by mela byt 1
         Assert.assertEquals(merchant, merchants.get(0));   // pozor merchants != merchant
+    }
+
+    @Test
+    // problem s merchant_id, nevime jestli probehl predchozi test a jestli uz je v DB merchant_id. => @Before createMerchant()
+    public void product() {
+        Product product = new Product(merchant.getId(), "ProductName", "Product Description", 5, 1);
+        Integer id = productService.add(product);
+        assert id != null;
+        product.setId(id);
+
+        Product fromDB = productService.get(id);
+        Assert.assertEquals(product, fromDB);
+
+        List<Product> products = productService.getProducts();
+        Assert.assertEquals(1, products.size());   //velikost listu by mela byt 1
+        Assert.assertEquals(product, products.get(0));   // pozor products != product
+
+        product.setAvailable(10);
+        UpdateProductRequest productRequest = new UpdateProductRequest(product.getName(), product.getDescription(), product.getPrice(), product.getAvailable());
+
+        productService.update(id, productRequest);  // this has available = 10
+        Product fromDBAfterUpdate = productService.get(id);
+        Assert.assertEquals(product, fromDBAfterUpdate);
+        Assert.assertNotEquals(fromDB, fromDBAfterUpdate);// enriched by setAvailable(10);
+
+        productService.delete(id);
+        Assert.assertEquals(0, productService.getProducts().size());
     }
 }

@@ -33,7 +33,7 @@ public class Merchant {
         this.id = id;
     }
 
-    @NonNull
+//    @NonNull
     public String getName() {
         return name;
     }
