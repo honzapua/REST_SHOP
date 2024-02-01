@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Connection;
@@ -23,6 +24,7 @@ import java.time.Instant;
  */
 @RunWith(SpringRunner.class)    //
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)  // vycisti kontext nez ho zapneme vcetne h2db
 public class DBInsertTests {
 
     private final String insertCustomer = "INSERT INTO customer(name, surname, email, address, age, phone_number) values (?,?,?,?,?,?)";

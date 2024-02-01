@@ -1,4 +1,4 @@
-CRUD
+D
 Create
 Read
 Update
@@ -20,3 +20,6 @@ CustomerRepository obsahuje jenom komunikaci s DB, nestara se o logiku
 CustomerServiceImpl bude slouzit k vlastni business logice, treba zjistovat, jestli ma zakaznik penize apod.
 
 ProductRepository a ServiceImpl stejna situace.
+
+Neprochazi testy na na, kdyz spustim cely balicek naraz! test creatMerchant() vytvoril zaznamy v db h2, ktere vadi dalsim testum
+Solution: @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) predtim nez se spusti class, vycisti se kontext
