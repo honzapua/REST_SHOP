@@ -24,7 +24,7 @@ public class MerchantRepository {
     }
 
     public Merchant get(int id) {
-        final String sql = "SELECT * FROM merchant WHERE product.id = " + id;
+        final String sql = "SELECT * FROM merchant WHERE merchant.id = " + id;
         try {
             //one Object we need only 1 where id = int
             return jdbcTemplate.queryForObject(sql, merchantRawMapper);
