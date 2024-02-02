@@ -18,7 +18,7 @@ public class CustomerController {
     }
     @PostMapping
     public ResponseEntity add(@RequestBody Customer customer) { //v
-        Integer id = customerService.add(customer); // v pripade uspesneho vlozeni ziskame id
+        Integer id = customerService.add(customer); // v pripade uspesneho vlozeni ziskame id z body
         if (id != null) {       // kdyz se povede vlozit
             return new ResponseEntity<>(id, HttpStatus.CREATED);  //201
         }
