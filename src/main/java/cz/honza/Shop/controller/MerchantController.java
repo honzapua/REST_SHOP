@@ -1,7 +1,6 @@
 package cz.honza.Shop.controller;
 
 import cz.honza.Shop.db.service.api.MerchantService;
-import cz.honza.Shop.domain.Customer;
 import cz.honza.Shop.domain.Merchant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
