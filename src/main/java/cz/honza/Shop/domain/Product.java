@@ -32,7 +32,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.available = available;
-        this.createdAt = Timestamp.from(Instant.now()); // v case vytvoreni konstruktoru
+        this.createdAt = Timestamp.from(Instant.now()); //new time in time of constructor call
     }
 
     @Nullable
