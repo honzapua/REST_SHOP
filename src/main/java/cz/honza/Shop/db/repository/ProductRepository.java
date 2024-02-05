@@ -1,8 +1,8 @@
 package cz.honza.Shop.db.repository;
 
-import cz.honza.Shop.db.mapper.ProductRawMapper;
 import cz.honza.Shop.db.service.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Product;
+import cz.honza.Shop.db.mapper.ProductRawMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
