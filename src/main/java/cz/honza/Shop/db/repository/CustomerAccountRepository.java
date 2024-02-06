@@ -13,7 +13,7 @@ public class CustomerAccountRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
     public void add(CustomerAccount customerAccount) {  // do NOT return int this time!
-        final String sql = "INSERT INTO customer_account(customer_id, money) VALUES (?,?)";
+        final String sql = "INSERT INTO customer_account (customer_id, money) VALUES (?, ?)";
         jdbcTemplate.update(sql, customerAccount.getCustomerId(), customerAccount.getMoney());
     }
     @Nullable   // could be no money

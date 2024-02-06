@@ -52,9 +52,9 @@ public class ShoppingServiceImpl implements ShoppingService {
                 productService.updateAvailableInternal(productId, product.getAvailable() - request.getQuantity());
                 customerAccountService.setMoney(customerId,customerMoney - totalPriceOfRequest);
                 boughtProductService.add(new BoughtProduct(productId, customerId, request.getQuantity()));
-                return new BuyProductResponse(true, )
+                return new BuyProductResponse(true);    //  Error messege do not work like in false success, "Customer with id: " + customerId + " Bought: " + request.getQuantity() + " products."
             } else {
-                return new BuyProductResponse(false, "Customer with id: " + customerId + " does NOT have enough Money! ")
+                return new BuyProductResponse(false, "Customer with id: " + customerId + " does NOT have enough Money! ");
             }
         }
     }

@@ -1,8 +1,8 @@
 package cz.honza.Shop;
 
+import cz.honza.Shop.domain.Product;
 import cz.honza.Shop.domain.Customer;
 import cz.honza.Shop.domain.Merchant;
-import cz.honza.Shop.domain.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.time.Instant;
  * testy v tehle tride se budou spoustet pod spring kontextem,
  * tj. muzeme pouzivat vsechny beans, ktere aplikace realne vyprodukovala
  */
-@RunWith(SpringRunner.class)    //
+@RunWith(SpringRunner.class)    // Test se spusti v kontexte spustene hlavni aplikace, tj. beans & services ready and running
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)  // vycisti kontext nez ho zapneme vcetne h2db
 public class DBInsertTests {
