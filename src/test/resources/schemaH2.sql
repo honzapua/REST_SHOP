@@ -1,4 +1,4 @@
-/* Toto neni stejny skript jako na vkladni do mysql tohle je h2 in memory! It must be named: schema.sql*/
+--/* Toto neni stejny skript jako na vkladni do mysql tohle je h2 in memory! It must be named: schema.sql*/
 
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (

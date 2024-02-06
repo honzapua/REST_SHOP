@@ -1,6 +1,6 @@
 package cz.honza.Shop.db.repository;
 
-import cz.honza.Shop.db.service.request.UpdateProductRequest;
+import cz.honza.Shop.db.service.api.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Product;
 import cz.honza.Shop.db.mapper.ProductRawMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -81,5 +81,10 @@ public class ProductRepository {
     public void delete(int id){
         final String sql = "DELETE FROM product WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+
+    public void updateAvailable(int id, int newAvailable) {
+        final String sql =  "UPDATE product SET available = ? WHERE id = ?";
+        jdbcTemplate.update(sql, newAvailable, id);
     }
 }

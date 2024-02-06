@@ -1,7 +1,7 @@
 package cz.honza.Shop.controller;
 
 import cz.honza.Shop.db.service.api.ProductService;
-import cz.honza.Shop.db.service.request.UpdateProductRequest;
+import cz.honza.Shop.db.service.api.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

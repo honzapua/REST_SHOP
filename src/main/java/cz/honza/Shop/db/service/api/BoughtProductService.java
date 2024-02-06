@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BoughtProductService {
     void add(BoughtProduct boughtProduct);
-    List<BoughtProduct> getAllbyCustomerId(int customerId); //This will be used BoughtproductController
+    List<BoughtProduct> getAllByCustomerId(int customerId); //This will be used BoughtproductController
 }

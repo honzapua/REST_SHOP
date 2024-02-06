@@ -2,7 +2,7 @@ package cz.honza.Shop.db.service.impl;
 
 import cz.honza.Shop.db.repository.ProductRepository;
 import cz.honza.Shop.db.service.api.ProductService;
-import cz.honza.Shop.db.service.request.UpdateProductRequest;
+import cz.honza.Shop.db.service.api.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Product;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +41,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(int id, UpdateProductRequest request) {
         productRepository.update(id, request);
+    }
+
+    @Override
+    public void updateAvailableInternal(int id, int newAvailable) {
+        productRepository.updateAvailable(id, newAvailable); // nejdrive udelat funkci v productRepository
     }
 }

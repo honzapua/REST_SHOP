@@ -1,4 +1,4 @@
-package cz.honza.Shop.db.service.request;
+package cz.honza.Shop.db.service.api.request;
 
 import org.springframework.lang.NonNull;
 
