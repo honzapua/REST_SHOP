@@ -12,13 +12,13 @@ public class CustomerAccountRepository {
     public CustomerAccountRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public void add(CustomerAccount customerAccount) {  // nevraci int!
+    public void add(CustomerAccount customerAccount) {  // do NOT return int this time!
         final String sql = "INSERT INTO customer_account(customer_id, money) VALUES (?,?)";
         jdbcTemplate.update(sql, customerAccount.getCustomerId(), customerAccount.getMoney());
     }
     @Nullable   // could be no money
-    public Double getMoney(int CustomerId) {    //Vraci jen cislo V objektu Double
-        final String sql = "SELECT money FROM customer_account WHERE customer_id = " + CustomerId;
+    public Double getMoney(int customerId) {    // Return only number in Double object
+        final String sql = "SELECT money FROM customer_account WHERE customer_id = " + customerId;
         try {
             return jdbcTemplate.queryForObject(sql, Double.class); // search for Double object not customerRowMapper
         } catch (DataAccessException e) {    // if id does not return

@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 public interface CustomerAccountService {
     void addCustomerAccount(CustomerAccount customerAccount);
 
-    @Nullable   // Muze vratit null, zadne penize
+    @Nullable   // can return null, NO money on account
     Double getMoney(int customerId);
 
     void setMoney(int CustomerId, double money);
