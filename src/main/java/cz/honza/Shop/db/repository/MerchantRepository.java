@@ -34,7 +34,7 @@ public class MerchantRepository {
     }
 
     public Integer add(Merchant merchant) {
-        final String sql = "INSERT INTO merchant(name, email, address) VALUES (?,?,?)";
+        final String sql = "INSERT INTO merchant(name, email, address) VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder(); // for RETURNING Generated key from DB thx to update
         jdbcTemplate.update(new PreparedStatementCreator() {

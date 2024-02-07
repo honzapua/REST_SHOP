@@ -5,9 +5,8 @@ import org.springframework.lang.NonNull;
 import java.util.Objects;
 
 public class UpdateProductRequest {
-    /**
-     * these 4 fields could be updated in Product
-     */
+
+   //these 4 fields could be updated in Product
     @NonNull    //
     private String name;
     @NonNull

@@ -9,7 +9,7 @@ public class Test {
 
     public Test(JdbcTemplate jdbcTemplate) {    //DI pomoci konstruktoru
         this.jdbcTemplate = jdbcTemplate;
-        this.jdbcTemplate.execute("select * from customer");//ZADNY vypis, ale zadna exception
+        this.jdbcTemplate.execute("select * from customer");    //ZADNY vypis, ale zadna exception
     }
 }
 */

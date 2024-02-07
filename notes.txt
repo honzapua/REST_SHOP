@@ -23,3 +23,5 @@ ProductRepository a ServiceImpl stejna situace.
 
 Neprochazi testy na na, kdyz spustim cely balicek naraz! test creatMerchant() vytvoril zaznamy v db h2, ktere vadi dalsim testum
 Solution: @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) predtim nez se spusti class, vycisti se kontext
+
+V kontrollerech vystavujeme REST Sluzby, ktere muze frontend zavolat

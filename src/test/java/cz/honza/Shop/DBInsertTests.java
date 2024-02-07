@@ -27,9 +27,9 @@ import java.time.Instant;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)  // vycisti kontext nez ho zapneme vcetne h2db
 public class DBInsertTests {
 
-    private final String insertCustomer = "INSERT INTO customer(name, surname, email, address, age, phone_number) values (?,?,?,?,?,?)";
+    private final String insertCustomer = "INSERT INTO customer(name, surname, email, address, age, phone_number) VALUES (?,?,?,?,?,?)";
     private final String insertMerchant = "INSERT INTO merchant(name, email, address) values (?,?,?)";
-    private final String insertProduct = "INSERT INTO product(merchant_id, name, description, price, created_at, available) values (?,?,?,?,?,?)";
+    private final String insertProduct = "INSERT INTO product(merchant_id, name, description, price, created_at, available) VALUES (?,?,?,?,?,?)";
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

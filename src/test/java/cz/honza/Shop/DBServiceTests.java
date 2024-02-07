@@ -18,9 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-/**
- * Tests in Spring context
- */
+//Tests in Spring context
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
@@ -32,7 +30,7 @@ public class DBServiceTests {
     @Autowired
     private ProductService productService;
 
-    private Merchant merchant; //pomocny field kvuli createMerchant()
+    private Merchant merchant; //pomocny deklarace field kvuli createMerchant()
 
     @Before //pomocna metoda se bude spoustet pred kazdym testem, potrebujeme merchant field/property kvuli product() a merchant()
     public void createMerchant() {

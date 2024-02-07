@@ -1,4 +1,5 @@
---/* Toto neni stejny skript jako na vkladni do mysql tohle je h2 in memory! It must be named: schema.sql*/
+-- Toto neni stejny skript jako na vkladni do mysql tohle je h2 in memory! It must be named: schema.sql
+-- musi se jmenovat test/java/resources/schema.sql a byt v resources jinak neprobehnou testy s h2!
 
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
