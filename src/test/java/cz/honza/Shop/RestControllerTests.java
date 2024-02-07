@@ -2,8 +2,10 @@ package cz.honza.Shop;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.honza.Shop.db.service.api.request.UpdateProductRequest;
 import cz.honza.Shop.domain.Customer;
 import cz.honza.Shop.domain.Merchant;
+import cz.honza.Shop.domain.Product;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +17,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -35,15 +35,90 @@ public class RestControllerTests {
     private MockMvc mockMvc;    //  simulate client calls of application
     @Autowired  //without this: java.lang.IllegalArgumentException: WebApplicationContext is required
     private WebApplicationContext webApplicationContext;
-
-    /*@Before
-    public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }*/
-
-    /*@Autowired*//*(required = true)*//*  //bean initialization
-    private MockMvc mockMvc;*/
     private final ObjectMapper objectMapper = new ObjectMapper();   // transforms object to JSON
+    private Merchant merchant;  //  only Declaration inicialization in createMerchant()
+
+    @Before //@Before will run before every test method
+    public void createMerchant() throws Exception { /// We must create Merchant before products because product needs foreign key merchant_id
+        if (merchant == null) {
+            merchant = new Merchant("name", "email", "address");
+
+            String id = mockMvc.perform(post("/merchant")   //  POST
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(merchant))) // insert merchant in JSON form
+                            .andExpect(status().isCreated())
+                            .andReturn().getResponse().getContentAsString();
+
+            merchant.setId(objectMapper.readValue(id, Integer.class));  // remap id from String to Integer
+        };
+    }
+
+    @Test
+    public void product() throws Exception {
+        Product product = new Product(merchant.getId(), "klavesnice", "nejlepsi mechanicka, ale levna!", 1, 10);
+
+        //  Add product
+        String id = mockMvc.perform(post("/product")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(product)))
+                .andExpect(status().isCreated())
+                .andReturn().getResponse().getContentAsString();
+        product.setId(objectMapper.readValue(id, Integer.class));
+
+        //  Get product
+        String  returnedProduct = mockMvc.perform(get("/product/" + product.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Product productFromRest = objectMapper.readValue(returnedProduct, Product.class);   // Cast to Product from REST String
+        Assert.assertEquals(product, productFromRest);
+
+        // Get all products
+        String listJson = mockMvc.perform(get("/product")     //   List<Product> response from getAll
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        List<Product> products = objectMapper.readValue(listJson, new TypeReference<List<Product>>(){});    //remap JSON to a Product list
+        assert products.size() == 1;
+        Assert.assertEquals(product, products.get(0));
+
+        //  Update product
+        double updatePrice = product.getPrice() + 1;
+        int updatedAvailable = product.getAvailable() + 5;
+        UpdateProductRequest updateProductRequest = new UpdateProductRequest(product.getName(), product.getDescription(), updatePrice, updatedAvailable); // last 2 parameters changed
+        // update part of product is PATCH
+        mockMvc.perform(patch("/product/" + product.getId())    //  no variable
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updateProductRequest)))
+                .andExpect(status().isOk());    // No getResponse to String because we would have empty String
+
+        String  returnedUpdatedProduct = mockMvc.perform(get("/product/" + product.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Product updatedProduct = objectMapper.readValue(returnedUpdatedProduct, Product.class);
+        assert updatePrice == updatedProduct.getPrice();
+        assert updatedAvailable == updatedProduct.getAvailable();
+//        System.out.println(returnedUpdatedProduct);
+
+        // Delete product
+        mockMvc.perform(delete("/product/" + product.getId())   // product deleted
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/product/" + product.getId())   // want get previously deleted product
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        String listJson2 = mockMvc.perform(get("/product")     // emtpy List<Product> response from getAll
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        List<Product> products2 = objectMapper.readValue(listJson2, new TypeReference<List<Product>>(){});    //remap JSON to a Product list
+        assert products2.size() == 0;   //  empty list products2 list after delete
+    }
 
     @Test
     public void customer() throws Exception {   // avoid all methods which throws others exceptions
@@ -85,8 +160,8 @@ public class RestControllerTests {
 
     @Test
     public void merchant() throws Exception {
-        //  Add merchant
-        Merchant merchant = new Merchant("name", "email", "address");
+        //  Add merchant - is already created in @Before createMerchant() method. It is called before every @Test method
+        /*Merchant merchant = new Merchant("name", "email", "address");
 
         String id = mockMvc.perform(post("/merchant")   //  POST
                         .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +169,7 @@ public class RestControllerTests {
                         .andExpect(status().isCreated())
                         .andReturn().getResponse().getContentAsString();
 
-        merchant.setId(objectMapper.readValue(id, Integer.class));  // remap id from String to Integer
+        merchant.setId(objectMapper.readValue(id, Integer.class));  // remap id from String to Integer*/
 
         //  Get merchant
         String merchantJson = mockMvc.perform(get("/merchant/" + merchant.getId())  //  GET

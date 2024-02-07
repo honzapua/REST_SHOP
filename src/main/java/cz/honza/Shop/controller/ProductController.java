@@ -23,7 +23,7 @@ public class ProductController {
         Integer id = productService.add(product);
         if (id != null) {
             System.out.println("GET /product/" + id + " called, returned name: " + product.getName());
-            return new ResponseEntity<>(id, HttpStatus.CREATED);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);    //  201 NOT 200
         }
         System.out.println("POST /product/ persist to DB failed!");
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
